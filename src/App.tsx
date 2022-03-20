@@ -1,4 +1,5 @@
 import Header from "./components/header/Header";
+import "./styles/main.sass";
 
 function App() {
 	return (
