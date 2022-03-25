@@ -1,26 +1,30 @@
-import "./Header.sass";
+import { useState } from "react";
 import { Button } from "@mui/material";
-import logo from "../../../public/coffee.svg";
+import { HeaderLogo } from "./HeaderLogo/HeaderLogo";
+import LoginModal from "../modals/LoginModal/LoginModal";
+import "./Header.sass";
 
 const Header = () => {
+	const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+
 	return (
 		<div className="header">
 			<div className="container">
 				<div className="header__content">
-					<div className="header__logo logo">
-						<div className="logo__pic">
-							<img
-								src={process.env.PUBLIC_URL + "/img/coffee.svg"}
-								alt="Task app"
-							/>
-						</div>
-						<div className="logo__text">Task/App</div>
-					</div>
+					<HeaderLogo />
 					<div className="header__buttons">
-						<Button variant="contained">Login</Button>
+						<Button variant="contained" onClick={() => setLoginModalOpen(true)}>
+							Login
+						</Button>
 					</div>
 				</div>
 			</div>
+			<LoginModal
+				isOpen={isLoginModalOpen}
+				onClose={() => {
+					setLoginModalOpen(false);
+				}}
+			/>
 		</div>
 	);
 };
