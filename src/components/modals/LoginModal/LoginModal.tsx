@@ -1,22 +1,87 @@
-import BaseModal from "../BaseModal/BaseModal";
+import { ChangeEvent, useState, useEffect, useContext } from 'react';
+import { TextField, Button } from '@mui/material';
+
+import BaseModal from '../BaseModal/BaseModal';
 
 interface ILoginModal {
-	/*
-	 * state of the modal window
-	 */
-	isOpen: boolean;
-	/*
-	 * modal close handler
-	 */
-	onClose: () => void;
+  /*
+   * state of the modal window
+   */
+  isOpen: boolean;
+  /*
+   * modal close handler
+   */
+  onClose: () => void;
 }
 
-const LOGIN_TITLE = `Login`;
+const LoginModal = ({ isOpen, ...props }: ILoginModal) => {
+  const LOGIN_TITLE = `Login`;
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
 
-const LoginModal = ({ ...props }: ILoginModal) => (
-	<BaseModal title={LOGIN_TITLE} {...props}>
-		<div>Login modal content</div>
-	</BaseModal>
-);
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'login': {
+        setLogin(value);
+        break;
+      }
+      case 'password': {
+        setPassword(value);
+        break;
+      }
+      default:
+        return;
+    }
+  };
+
+  const clearForm = () => {
+    setLogin('');
+    setPassword('');
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      clearForm();
+    }
+  }, [isOpen]);
+
+  const modalBody = (
+    <div>
+      <div className="input-modal">
+        <TextField
+          label="Login"
+          name="login"
+          autoComplete="off"
+          fullWidth
+          value={login}
+          onChange={handleInput}
+          // error={errors.loginError === true}
+          required
+        />
+      </div>
+
+      <div className="input-modal">
+        <TextField
+          label="Password"
+          name="password"
+          type={'password'}
+          autoComplete="off"
+          fullWidth
+          value={password}
+          onChange={handleInput}
+          // error={errors.loginError === true}
+          required
+        />
+      </div>
+    </div>
+  );
+
+  return (
+    <BaseModal title={LOGIN_TITLE} isOpen={isOpen} onConfirm={() => {}} {...props}>
+      {modalBody}
+    </BaseModal>
+  );
+};
 
 export default LoginModal;
