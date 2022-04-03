@@ -32,16 +32,10 @@ export const ModalButtons = ({
   disableConfirm,
 }: IModalButtons) => (
   <div className="buttons-modal">
-    <Button variant="outlined" size="medium" onClick={onClose}>
+    <Button variant="text" onClick={onClose}>
       {cancelBtnText}
     </Button>
-    <Button
-      variant="contained"
-      size="medium"
-      color="primary"
-      onClick={onConfirm}
-      disabled={disableConfirm}
-    >
+    <Button variant="contained" color="primary" onClick={onConfirm} disabled={disableConfirm}>
       {okBtnText}
     </Button>
   </div>

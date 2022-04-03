@@ -5,6 +5,14 @@ import './BaseModal.sass';
 
 interface IBaseModal {
   /*
+   * confirmation button text
+   */
+  okBtnText?: string;
+  /*
+   * cancel button text
+   */
+  cancelBtnText?: string;
+  /*
    * state of the modal window
    */
   isOpen: boolean;
@@ -32,7 +40,7 @@ const BaseModal = ({ isOpen, title, onClose, onConfirm, children, ...other }: IB
       <div className="header-modal">{title}</div>
       <div className="content-modal">
         {children}
-        <ModalButtons onClose={onClose} onConfirm={onConfirm} disableConfirm={false} />
+        <ModalButtons onClose={onClose} onConfirm={onConfirm} disableConfirm={false} {...other} />
       </div>
     </div>
   </Modal>
